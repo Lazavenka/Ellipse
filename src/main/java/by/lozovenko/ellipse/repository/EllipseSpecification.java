@@ -3,5 +3,5 @@ package by.lozovenko.ellipse.repository;
 import by.lozovenko.ellipse.entity.Ellipse;
 
 public interface EllipseSpecification {
-    boolean specify(Ellipse ellipse);
+    boolean specify(Ellipse ellipse); //TODO need tests
 }

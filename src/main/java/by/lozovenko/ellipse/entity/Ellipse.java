@@ -3,11 +3,12 @@ package by.lozovenko.ellipse.entity;
 import by.lozovenko.ellipse.observer.EllipseEvent;
 import by.lozovenko.ellipse.observer.Observable;
 import by.lozovenko.ellipse.observer.Observer;
+import by.lozovenko.ellipse.util.IdGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ellipse extends AbstractShape implements Observable{
+public class Ellipse extends AbstractShape implements Observable {
 
     private Point2D startPoint;
     private Point2D endPoint;
@@ -26,6 +27,7 @@ public class Ellipse extends AbstractShape implements Observable{
     public Point2D getEndPoint() {
         return endPoint;
     }
+
     public void setStartPoint(Point2D startPoint) {
         this.startPoint = startPoint;
         notifyObservers();
@@ -43,16 +45,16 @@ public class Ellipse extends AbstractShape implements Observable{
 
     @Override
     public boolean equals(Object o) {
-        if (this == o){
+        if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()){
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
 
         Ellipse ellipse = (Ellipse) o;
 
-        if (getEllipseId() != ellipse.getEllipseId()){
+        if (getEllipseId() != ellipse.getEllipseId()) {
             return false;
         }
         if (!startPoint.equals(ellipse.startPoint)) {
@@ -93,7 +95,7 @@ public class Ellipse extends AbstractShape implements Observable{
 
     @Override
     public void notifyObservers() {
-        if (observers.isEmpty()){
+        if (observers.isEmpty()) {
             return;
         }
         EllipseEvent event = new EllipseEvent(this);

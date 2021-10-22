@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 public class Program {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final String DEFAULT_FILEPATH = "data/data.txt";
+
     public static void main(String[] args) {
         CustomFileReader fileReader = new CustomFileReaderImpl();
         DoubleArrayParser doubleArrayParser = new DoubleArrayParser();
@@ -35,7 +36,7 @@ public class Program {
                     }
                     return null;
                 })
-                .collect(Collectors.toList());
+                .toList();
         ellipses.forEach(ellipse -> LOGGER.log(Level.INFO, ellipse.toString()));
     }
 }

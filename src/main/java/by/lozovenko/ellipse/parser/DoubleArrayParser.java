@@ -10,10 +10,11 @@ import java.util.List;
 
 public class DoubleArrayParser {
     private static final Logger LOGGER = LogManager.getLogger();
-    public double[] parseData(String data){
+
+    public double[] parseData(String data) {
         StringDataValidator dataValidator = new StringDataValidator();
         List<String> stringNumbers = new ArrayList<>();
-        if (dataValidator.validate(data)){
+        if (dataValidator.validate(data)) {
             stringNumbers = Arrays.stream(data.split(StringDataValidator.DELIMITER_REGEX)).toList();
             LOGGER.debug(stringNumbers); //TODO clean unnecessary debug logs
         }

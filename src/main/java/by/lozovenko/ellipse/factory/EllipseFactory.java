@@ -32,11 +32,13 @@ public class EllipseFactory {
 
         return createEllipse(leftLowX, leftLowY, rightUpX, rightUpY);
     }
-    public static Ellipse createEllipse(String line) throws ProjectException{
+
+    public static Ellipse createEllipse(String line) throws ProjectException {
         DoubleArrayParser parser = new DoubleArrayParser();
         double[] coordinates = parser.parseData(line);
         return createEllipse(coordinates);
     }
+
     private static Ellipse createEllipse(double startPointX, double startPointY, double endPointX, double endPointY) {
         double leftLowX = Math.min(startPointX, endPointX);
         double leftLowY = Math.min(startPointY, endPointY);

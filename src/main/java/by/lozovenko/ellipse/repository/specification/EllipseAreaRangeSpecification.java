@@ -7,10 +7,12 @@ import by.lozovenko.ellipse.repository.EllipseSpecification;
 public class EllipseAreaRangeSpecification implements EllipseSpecification {
     private final double minAreaValue;
     private final double maxAreaValue;
-    public EllipseAreaRangeSpecification(double minAreaValue, double maxAreaValue){
+
+    public EllipseAreaRangeSpecification(double minAreaValue, double maxAreaValue) {
         this.minAreaValue = Math.min(minAreaValue, maxAreaValue);
         this.maxAreaValue = Math.max(minAreaValue, maxAreaValue);
     }
+
     @Override
     public boolean specify(Ellipse ellipse) {
         EllipseAction action = EllipseAction.getInstance();

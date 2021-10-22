@@ -11,15 +11,15 @@ public class StringDataValidator {
 
     public static final String DELIMITER_REGEX = "\\s+";
 
-    public boolean validate(String stringData){
-        if (stringData == null){
+    public boolean validate(String stringData) {
+        if (stringData == null) {
             LOGGER.debug("Input line is NULL!");
             return false;
         }
         String[] lexemes = stringData.split(DELIMITER_REGEX);
 
-        for (String lexeme: lexemes) {
-            if (!lexeme.matches(FLOATING_POINT_NUMBER_REGEX)){
+        for (String lexeme : lexemes) {
+            if (!lexeme.matches(FLOATING_POINT_NUMBER_REGEX)) {
                 LOGGER.debug("Incorrect floating point number format in lexeme: {}", lexeme);
                 LOGGER.debug("Incorrect data line: {}", stringData);
                 return false;
