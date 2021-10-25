@@ -16,7 +16,6 @@ public class DoubleArrayParser {
         List<String> stringNumbers = new ArrayList<>();
         if (dataValidator.validate(data)) {
             stringNumbers = Arrays.stream(data.split(StringDataValidator.DELIMITER_REGEX)).toList();
-            LOGGER.debug(stringNumbers); //TODO clean unnecessary debug logs
         }
         return stringNumbers.stream().mapToDouble(Double::parseDouble).toArray();
     }

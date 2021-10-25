@@ -1,5 +1,7 @@
 package by.lozovenko.ellipse.warehouse;
 
+import by.lozovenko.ellipse.action.EllipseAction;
+import by.lozovenko.ellipse.entity.Ellipse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,7 +23,13 @@ public class Warehouse {
         }
         return instance;
     }
-
+    public void putParameters(Ellipse ellipse){
+        long ellipseId = ellipse.getEllipseId();
+        EllipseAction ellipseAction = EllipseAction.getInstance();
+        double area = ellipseAction.calculateArea(ellipse);
+        double perimeter = ellipseAction.calculatePerimeter(ellipse);
+        putParameters(ellipseId, perimeter, area);
+    }
     public void putParameters(long ellipseId, double perimeter, double area) {
         EllipseParameter ellipseParameter = new EllipseParameter();
         ellipseParameter.setArea(area);

@@ -3,7 +3,6 @@ package by.lozovenko.ellipse.repository;
 import by.lozovenko.ellipse.entity.Ellipse;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class EllipseRepository {
     private static EllipseRepository instance;
@@ -30,6 +29,10 @@ public class EllipseRepository {
 
     public boolean add(Ellipse ellipse) {
         return ellipses.add(ellipse);
+    }
+
+    public Ellipse get(int index){
+        return ellipses.get(index);
     }
 
     public boolean remove(Ellipse ellipse) {
@@ -60,5 +63,13 @@ public class EllipseRepository {
 
     public List<Ellipse> sort(Comparator<Ellipse> comparator) {
         return ellipses.stream().sorted(comparator).toList();
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("EllipseRepository{");
+        sb.append("ellipses=").append(ellipses);
+        sb.append('}');
+        return sb.toString();
     }
 }

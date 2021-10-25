@@ -4,6 +4,7 @@ import by.lozovenko.ellipse.entity.Ellipse;
 import by.lozovenko.ellipse.entity.Point2D;
 import by.lozovenko.ellipse.exception.ProjectException;
 import by.lozovenko.ellipse.parser.DoubleArrayParser;
+import by.lozovenko.ellipse.util.EllipsePointSwitcher;
 import by.lozovenko.ellipse.validator.EllipseValidator;
 
 public class EllipseFactory {
@@ -16,10 +17,13 @@ public class EllipseFactory {
         if ((startPoint == null || endPoint == null) || !ellipseValidator.isValid(startPoint, endPoint)) {
             throw new ProjectException("Illegal argument!");
         }
+        if (EllipsePointSwitcher.isNeedSwitchPoints(startPoint, endPoint)){
+            EllipsePointSwitcher.switchPoints(startPoint, endPoint);
+        }
         return new Ellipse(startPoint, endPoint);
     }
 
-    public static Ellipse createEllipse(double[] coordinates) throws ProjectException {
+    public static Ellipse createEllipse(double... coordinates) throws ProjectException {
         EllipseValidator ellipseValidator = new EllipseValidator();
 
         if (coordinates == null || !ellipseValidator.isValid(coordinates)) {
@@ -39,7 +43,8 @@ public class EllipseFactory {
         return createEllipse(coordinates);
     }
 
-    private static Ellipse createEllipse(double startPointX, double startPointY, double endPointX, double endPointY) {
+    private static Ellipse createEllipse(double startPointX, double startPointY,
+                                         double endPointX, double endPointY) {
         double leftLowX = Math.min(startPointX, endPointX);
         double leftLowY = Math.min(startPointY, endPointY);
         double rightUpX = Math.max(startPointX, endPointX);

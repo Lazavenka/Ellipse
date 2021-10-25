@@ -1,15 +1,18 @@
 package by.lozovenko.ellipse.entity;
 
+import by.lozovenko.ellipse.exception.ProjectException;
 import by.lozovenko.ellipse.observer.EllipseEvent;
 import by.lozovenko.ellipse.observer.Observable;
 import by.lozovenko.ellipse.observer.Observer;
-import by.lozovenko.ellipse.util.IdGenerator;
+import by.lozovenko.ellipse.util.EllipsePointSwitcher;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Ellipse extends AbstractShape implements Observable {
-
+    private static final Logger LOGGER = LogManager.getLogger();
     private Point2D startPoint;
     private Point2D endPoint;
     private final List<Observer> observers;
@@ -28,19 +31,40 @@ public class Ellipse extends AbstractShape implements Observable {
         return endPoint;
     }
 
-    public void setStartPoint(Point2D startPoint) {
+    public void setStartPoint(Point2D startPoint) throws ProjectException {
+        if (startPoint.getX() == this.endPoint.getX() || startPoint.getY() == this.endPoint.getY()){
+            throw new ProjectException("Incorrect point coordinates. Cannot create rectangle.");
+        }
+        if (EllipsePointSwitcher.isNeedSwitchPoints(startPoint, this.endPoint)){
+            EllipsePointSwitcher.switchPoints(startPoint, this.endPoint);
+            LOGGER.debug("Points switched");
+        }
         this.startPoint = startPoint;
         notifyObservers();
     }
 
-    public void setEndPoint(Point2D endPoint) {
+    public void setStartPoint(double x, double y) throws ProjectException {
+        Point2D newStartPoint = new Point2D(x, y);
+        setStartPoint(newStartPoint);
+    }
+
+    public void setEndPoint(Point2D endPoint) throws ProjectException {
+        double newEndPointX = endPoint.getX();
+        double newEndPointY = endPoint.getY();
+        if (newEndPointX == this.startPoint.getX() || newEndPointY == this.startPoint.getY()){
+            throw new ProjectException("Incorrect point coordinates. Points not creates rectangle.");
+        }
+        if (EllipsePointSwitcher.isNeedSwitchPoints(this.startPoint, endPoint)){
+            EllipsePointSwitcher.switchPoints(this.startPoint, endPoint);
+            LOGGER.debug("Points switched");
+        }
         this.endPoint = endPoint;
         notifyObservers();
     }
 
-    @Override
-    public long getEllipseId() {
-        return super.getEllipseId();
+    public void setEndPoint(double x, double y) throws ProjectException {
+        Point2D newEndPoint = new Point2D(x, y);
+        setEndPoint(newEndPoint);
     }
 
     @Override
@@ -54,13 +78,7 @@ public class Ellipse extends AbstractShape implements Observable {
 
         Ellipse ellipse = (Ellipse) o;
 
-        if (getEllipseId() != ellipse.getEllipseId()) {
-            return false;
-        }
-        if (!startPoint.equals(ellipse.startPoint)) {
-            return false;
-        }
-        return endPoint.equals(ellipse.endPoint);
+        return startPoint.equals(ellipse.startPoint) && endPoint.equals(ellipse.endPoint);
     }
 
     @Override
@@ -100,5 +118,6 @@ public class Ellipse extends AbstractShape implements Observable {
         }
         EllipseEvent event = new EllipseEvent(this);
         observers.forEach(o -> o.parameterChanged(event));
+        LOGGER.debug("Parameters changed.");
     }
 }

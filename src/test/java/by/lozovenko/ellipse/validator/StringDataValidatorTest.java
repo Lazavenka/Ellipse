@@ -22,6 +22,7 @@ public class StringDataValidatorTest {
 
         assertFalse(actual);
     }
+
     @Test(description = "Another invalid data.")
     public void testValidateIncorrectDataAnother() {
         String stringData = "0.255 0.222  33,435";

@@ -7,6 +7,7 @@ import static org.testng.Assert.*;
 
 public class EllipseValidatorTest {
     EllipseValidator ellipseValidator = new EllipseValidator();
+
     @Test(description = "Valid data set.")
     public void testIsValid() {
         double[] coordinates = new double[]{1.2, 2.2, 4.4, 5.5};
@@ -14,6 +15,7 @@ public class EllipseValidatorTest {
 
         assertTrue(actual);
     }
+
     @Test(description = "Not enough numbers in set.")
     public void testIsValidThreeNumbers() {
         double[] coordinates = new double[]{1.2, 2.2, 4.4};

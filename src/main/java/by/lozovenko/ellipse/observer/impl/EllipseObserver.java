@@ -2,7 +2,6 @@ package by.lozovenko.ellipse.observer.impl;
 
 import by.lozovenko.ellipse.action.EllipseAction;
 import by.lozovenko.ellipse.entity.Ellipse;
-import by.lozovenko.ellipse.entity.Point2D;
 import by.lozovenko.ellipse.observer.EllipseEvent;
 import by.lozovenko.ellipse.observer.Observer;
 import by.lozovenko.ellipse.warehouse.Warehouse;

@@ -3,18 +3,18 @@ package by.lozovenko.ellipse.main;
 import by.lozovenko.ellipse.entity.Ellipse;
 import by.lozovenko.ellipse.exception.ProjectException;
 import by.lozovenko.ellipse.factory.EllipseFactory;
+import by.lozovenko.ellipse.observer.impl.EllipseObserver;
 import by.lozovenko.ellipse.parser.DoubleArrayParser;
 import by.lozovenko.ellipse.reader.CustomFileReader;
 import by.lozovenko.ellipse.reader.impl.CustomFileReaderImpl;
+import by.lozovenko.ellipse.repository.EllipseRepository;
 import by.lozovenko.ellipse.validator.EllipseValidator;
-import by.lozovenko.ellipse.validator.StringDataValidator;
+import by.lozovenko.ellipse.warehouse.Warehouse;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Program {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -38,5 +38,25 @@ public class Program {
                 })
                 .toList();
         ellipses.forEach(ellipse -> LOGGER.log(Level.INFO, ellipse.toString()));
+        EllipseObserver observer = new EllipseObserver();
+        ellipses.forEach(e -> e.attach(observer));
+        ellipses.forEach(e -> Warehouse.getInstance().putParameters(e));
+        EllipseRepository ellipseRepository = EllipseRepository.getInstance();
+        ellipseRepository.addAll(ellipses);
+        LOGGER.log(Level.INFO, ellipseRepository);
+        try {
+            ellipseRepository.get(0).setStartPoint(99,99);
+            LOGGER.log(Level.INFO, ellipseRepository);
+            LOGGER.log(Level.INFO, Warehouse.getInstance().getEllipseMap());
+            ellipseRepository.get(0).setStartPoint(100, 100);
+            LOGGER.log(Level.INFO, ellipseRepository);
+            LOGGER.log(Level.INFO, Warehouse.getInstance().getEllipseMap());
+            ellipseRepository.get(0).setEndPoint(98, 98);
+            LOGGER.log(Level.INFO, ellipseRepository);
+            LOGGER.log(Level.INFO, Warehouse.getInstance().getEllipseMap());
+        } catch (ProjectException e) {
+            LOGGER.debug("Incorrect coordinates", e);
+        }
+        LOGGER.log(Level.INFO, Warehouse.getInstance().getEllipseMap());
     }
 }
