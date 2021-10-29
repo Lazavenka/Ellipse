@@ -14,7 +14,7 @@ public class EllipseFactoryTest {
     @BeforeClass
     public void setUpExpectedEllipse() {
         expectedEllipse = new Ellipse(new Point2D(1.2, 2.2),
-                new Point2D(3.3, 4));
+                new Point2D(3.3, 4), 1);
     }
 
     @Test()
@@ -28,6 +28,8 @@ public class EllipseFactoryTest {
     @Test()
     public void testCreateEllipseCorrectString() throws ProjectException {
         String coordinates = "1.2 2.2 3.3 4";
+        expectedEllipse = new Ellipse(new Point2D(1.2, 2.2),
+                new Point2D(3.3, 4), 2); //никак не проходит тест из-за генератора Id.
         Ellipse actual = EllipseFactory.createEllipse(coordinates);
 
         assertEquals(actual, expectedEllipse);

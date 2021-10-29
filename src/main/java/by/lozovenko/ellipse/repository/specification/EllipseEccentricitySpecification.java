@@ -5,12 +5,12 @@ import by.lozovenko.ellipse.entity.Ellipse;
 import by.lozovenko.ellipse.repository.EllipseSpecification;
 
 public class EllipseEccentricitySpecification implements EllipseSpecification {
-    private double fromEccentricity;
-    private double toEccentricity;
+    private final double fromEccentricity;
+    private final double toEccentricity;
 
     public EllipseEccentricitySpecification(double fromEccentricity, double toEccentricity) {
-        this.fromEccentricity = fromEccentricity;
-        this.toEccentricity = toEccentricity;
+        this.fromEccentricity = Math.min(fromEccentricity, toEccentricity);
+        this.toEccentricity = Math.max(fromEccentricity, toEccentricity);
     }
 
     @Override

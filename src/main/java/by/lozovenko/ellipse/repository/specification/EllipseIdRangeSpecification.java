@@ -4,12 +4,12 @@ import by.lozovenko.ellipse.entity.Ellipse;
 import by.lozovenko.ellipse.repository.EllipseSpecification;
 
 public class EllipseIdRangeSpecification implements EllipseSpecification {
-    private long startId;
-    private long endId;
+    private final long startId;
+    private final long endId;
 
     public EllipseIdRangeSpecification(long startId, long endId) {
-        this.startId = startId;
-        this.endId = endId;
+        this.startId = Math.min(startId, endId);
+        this.endId = Math.max(startId, endId);
     }
 
     @Override

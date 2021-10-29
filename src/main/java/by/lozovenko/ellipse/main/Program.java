@@ -5,6 +5,7 @@ import by.lozovenko.ellipse.exception.ProjectException;
 import by.lozovenko.ellipse.factory.EllipseFactory;
 import by.lozovenko.ellipse.observer.impl.EllipseObserver;
 import by.lozovenko.ellipse.parser.DoubleArrayParser;
+import by.lozovenko.ellipse.parser.impl.DoubleArrayParserImpl;
 import by.lozovenko.ellipse.reader.CustomFileReader;
 import by.lozovenko.ellipse.reader.impl.CustomFileReaderImpl;
 import by.lozovenko.ellipse.repository.EllipseRepository;
@@ -22,11 +23,11 @@ public class Program {
 
     public static void main(String[] args) {
         CustomFileReader fileReader = new CustomFileReaderImpl();
-        DoubleArrayParser doubleArrayParser = new DoubleArrayParser();
+        DoubleArrayParser doubleArrayParserImpl = new DoubleArrayParserImpl();
         EllipseValidator ellipseValidator = new EllipseValidator();
         List<String> lines = fileReader.readLinesFromFile(DEFAULT_FILEPATH);
         List<Ellipse> ellipses = lines.stream()
-                .map(doubleArrayParser::parseData)
+                .map(doubleArrayParserImpl::parseData)
                 .filter(ellipseValidator::isValid)
                 .map(doubles -> {
                     try {
@@ -38,8 +39,7 @@ public class Program {
                 })
                 .toList();
         ellipses.forEach(ellipse -> LOGGER.log(Level.INFO, ellipse.toString()));
-        EllipseObserver observer = new EllipseObserver();
-        ellipses.forEach(e -> e.attach(observer));
+        ellipses.forEach(e -> e.attach(new EllipseObserver()));
         ellipses.forEach(e -> Warehouse.getInstance().putParameters(e));
         EllipseRepository ellipseRepository = EllipseRepository.getInstance();
         ellipseRepository.addAll(ellipses);
@@ -51,7 +51,7 @@ public class Program {
             ellipseRepository.get(0).setStartPoint(100, 100);
             LOGGER.log(Level.INFO, ellipseRepository);
             LOGGER.log(Level.INFO, Warehouse.getInstance().getEllipseMap());
-            ellipseRepository.get(0).setEndPoint(98, 98);
+            ellipseRepository.get(0).setEndPoint(90, 90);
             LOGGER.log(Level.INFO, ellipseRepository);
             LOGGER.log(Level.INFO, Warehouse.getInstance().getEllipseMap());
         } catch (ProjectException e) {

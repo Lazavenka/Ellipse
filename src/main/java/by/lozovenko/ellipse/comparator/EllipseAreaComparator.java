@@ -14,5 +14,5 @@ public class EllipseAreaComparator implements Comparator<Ellipse> {
         double areaEllipseOne = warehouse.getParametersById(ellipseOneId).getArea();
         double areaEllipseTwo = warehouse.getParametersById(ellipseTwoId).getArea();
         return Double.compare(areaEllipseOne, areaEllipseTwo);
-    } //TODO need tests
+    }
 }

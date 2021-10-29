@@ -3,7 +3,7 @@ package by.lozovenko.ellipse.factory;
 import by.lozovenko.ellipse.entity.Ellipse;
 import by.lozovenko.ellipse.entity.Point2D;
 import by.lozovenko.ellipse.exception.ProjectException;
-import by.lozovenko.ellipse.parser.DoubleArrayParser;
+import by.lozovenko.ellipse.parser.impl.DoubleArrayParserImpl;
 import by.lozovenko.ellipse.util.EllipsePointSwitcher;
 import by.lozovenko.ellipse.validator.EllipseValidator;
 
@@ -38,7 +38,7 @@ public class EllipseFactory {
     }
 
     public static Ellipse createEllipse(String line) throws ProjectException {
-        DoubleArrayParser parser = new DoubleArrayParser();
+        DoubleArrayParserImpl parser = new DoubleArrayParserImpl();
         double[] coordinates = parser.parseData(line);
         return createEllipse(coordinates);
     }

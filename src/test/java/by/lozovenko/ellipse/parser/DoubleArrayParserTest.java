@@ -1,11 +1,12 @@
 package by.lozovenko.ellipse.parser;
 
+import by.lozovenko.ellipse.parser.impl.DoubleArrayParserImpl;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
 public class DoubleArrayParserTest {
-    DoubleArrayParser doubleArrayParser = new DoubleArrayParser();
+    DoubleArrayParser doubleArrayParser = new DoubleArrayParserImpl();
 
     @Test
     public void testParseData() {
